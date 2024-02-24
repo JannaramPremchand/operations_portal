@@ -1,0 +1,208 @@
+{% extends 'co-ordinator-header.html'%}
+{% block body%}
+<div class="app-page-title">
+    <div class="page-title-wrapper">
+        <div class="page-title-heading">
+            <div class="page-title-icon">
+                <button class="btn" onclick="history.back()" style="margin-left:-10px">
+                    <i class="pe-7s-left-arrow pe-2x"></i>
+                </button>
+            </div>
+            <div>Details
+                <div class="page-title-subheading">
+                </div>
+            </div>
+        </div>
+        <div class="page-title-actions">
+            
+            <form method="post"  enctype="multipart/form-data">
+                {% csrf_token %}
+                <button type="button" id="upload_attendance" name="upload_attendance" class="btn" style="color: #FFDE59;background: #1B1642;">
+                    Upload Attendance<i class="ml-2 fa fa-upload"></i>
+                </button>
+                <input type="file" onchange="this.form.submit()" id="attendanceFile" name="attendanceFile" accept=".csv" style="display:none"/>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="main-card mb-3 card">
+    <div class="card-body">
+        {% for message in messages%}
+            <h4 align="center" style="color: #FFDE59;">{{message}}</h4>
+            {% endfor %}
+        <div class="d-flex">
+            <!-- <form method="POST" enctype="multipart/form-data"> -->
+            {% csrf_token %}
+            <div class="position-relative form-group d-flex">
+                <select type="select" id="adv_filter_select" name="adv_filter_select" class="custom-select">
+                    <option value="">Advanced Filtering</option>
+                    <option>Top 10 Students</option>
+                    <option>Students with Highest Placement Chance</option>
+                    <option>Students with Lowest Placement Chance</option>
+                </select>
+                <input type="hidden" name="batch_k" id="batch_k" value="">
+                <button class="btn ml-5 mr-5" id="adv_filter_go" style="color: #FFDE59;background: #1B1642;width: 100px;" onclick="myFunction()">Go</button>
+                <div class="input-group ml-5">
+                    <div class="input-group-prepend"><span class="input-group-text"><i class="pe-7s-search">
+                            </i></span></div>
+                    <input placeholder="username" id="myInput" onkeyup="mySearchFunction()" type="text" class="form-control">
+                </div>
+            </div>
+            <div class="position-relative form-group d-flex">
+            </div>
+            <!-- </form> -->
+        </div>
+        <div class="table-responsive">
+            <table id="myTable" class="mb-0 table table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <th>Current Ranking</th>
+                        <th>Student Name</th>
+                        <th>Student Email</th>
+                        <th>Total Sessions in Batch</th>
+                        <th>Sessions Attended by Student</th>
+                        <th>Minutes of Session in Batch</th>
+                        <th>Total Minutes Attended by Student</th>
+                        <th>Student Attendance %</th>
+                        <th>Student Availability %</th>
+                    </tr>
+                </thead>
+                <!-- <tbody> -->
+                {% for i in sess%}
+                <tr>
+                    <td>{{i.SessionId}}{{i.StudentId}}</td>
+                    <td><a href="/studentattendancedetails/{{i.StudentId}}" class="btn b-btn">
+                            {{i.StudentName}}</a></td>
+                    <td>{{i.StudentEmail}}</td>
+                    <td>{{i.totalsessions}}</td>
+                    <td>{{i.studentsessions}}</td>
+                    <td>{{i.sessionminutes}}</td>
+                    <td>{{i.studentminutes}}</td>
+                    <td>{{i.studentattendancepercent}}</td>
+                    <td>{{i.studentavailabilitypercent}}</td>
+                </tr>
+                {% endfor %}
+                <!-- </tbody> -->
+            </table>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<script type="text/javascript">
+$('#myTable').after('<nav id="paginationnav" class="mt-3 float-right"><ul class="pagination" id="nav" ></ul></nav>');
+var rowsShown = 15;
+var rowsTotal = $('#myTable tbody tr').length;
+var numPages = rowsTotal / rowsShown;
+for (i = 0; i < numPages; i++) {
+    var pageNum = i + 1;
+    $('#nav').append('<li class="page-item"><a class="page-link" href="#" rel="' + i + '">' + pageNum + '</a></li>');
+}
+$('#myTable tbody tr').hide();
+$('#myTable tbody tr').slice(0, rowsShown).show();
+$('#nav a:first').addClass('active');
+$('#nav a').bind('click', function() {
+
+    $('#nav a').removeClass('active');
+    $(this).addClass('active');
+    var currPage = $(this).attr('rel');
+    var startItem = currPage * rowsShown;
+    var endItem = startItem + rowsShown;
+    $('#myTable tbody tr').css('opacity', '0.0').hide().slice(startItem, endItem).
+    css('display', 'table-row').animate({ opacity: 1 }, 300);
+});
+</script>
+<script>
+// $('#adv_filter_go').on('click', function(e) 
+document.getElementById("adv_filter_go").addEventListener("click", myFunction, false);
+
+function myFunction() {
+    $("#myTable tbody").remove();
+
+    opt_val = document.getElementById("adv_filter_select").value;
+    batch_k = document.getElementById("batch_k").value;
+    console.log('opt_val' + opt_val);
+    const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+    $.ajax({
+            headers: { 'X-CSRFToken': csrftoken },
+            data: {
+                option: opt_val,
+                batch_k: batch_k
+            },
+
+            type: 'POST',
+            url: '/fetchitems/'
+        })
+        .done(function(data) {
+            console.log(data);
+            $("#paginationnav").remove();
+            for (var i = 0; i < data.length; i++) {
+
+                console.log('studentid' + data[i].StudentId);
+                var row = $('<tbody><tr><td>' + data[i].SessionId + '</td><td><a class="btn b-btn" href="/studentattendancedetails/'+data[i].StudentId+'";>' + data[i].StudentName + '</a></td><td>' + data[i].StudentEmail + '</td><td>' + data[i].totalsessions + '</td><td>' + data[i].studentsessions + '</td><td>' + data[i].sessionminutes + '</td><td>' + data[i].studentminutes + '</td><td>' + data[i].studentattendancepercent + '</td><td>' + data[i].studentavailabilitypercent + '</td></tr></tbody>');
+                // var st_table = document.getElementById("example")
+                $('#myTable').append(row);
+
+            }
+            $('#myTable').after('<nav id="paginationnav" class="mt-3 float-right"><ul class="pagination" id="nav" ></ul></nav>');
+            var rowsShown = 15;
+            var rowsTotal = $('#myTable tbody tr').length;
+            var numPages = rowsTotal / rowsShown;
+            for (i = 0; i < numPages; i++) {
+                var pageNum = i + 1;
+                $('#nav').append('<li class="page-item"><a class="page-link" href="#" rel="' + i + '">' + pageNum + '</a></li>');
+            }
+            $('#myTable tbody tr').hide();
+            $('#myTable tbody tr').slice(0, rowsShown).show();
+            $('#nav a:first').addClass('active');
+            $('#nav a').bind('click', function() {
+
+                $('#nav a').removeClass('active');
+                $(this).addClass('active');
+                var currPage = $(this).attr('rel');
+                var startItem = currPage * rowsShown;
+                var endItem = startItem + rowsShown;
+                $('#myTable tbody tr').css('opacity', '0.0').hide().slice(startItem, endItem).
+                css('display', 'table-row').animate({ opacity: 1 }, 300);
+            });
+
+
+        });
+}
+</script>
+<script type="text/javascript">
+function mySearchFunction() {
+    var input, filter, table, tr, td, i, txtValue;
+    input = document.getElementById("myInput");
+    filter = input.value.toUpperCase();
+    table = document.getElementById("myTable");
+    tr = table.getElementsByTagName("tr");
+    for (i = 0; i < tr.length; i++) {
+        td = tr[i].getElementsByTagName("td")[1];
+        if (td) {
+            txtValue = td.textContent || td.innerText;
+            if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                tr[i].style.display = "";
+            } else {
+                tr[i].style.display = "none";
+            }
+        }
+    }
+}
+</script>
+<script type="text/javascript">
+document.getElementById('upload_attendance').onclick = function() {
+    document.getElementById('attendanceFile').click();
+};
+</script>
+<script type="text/javascript">
+    document.getElementById("adv_filter_go").onclick =function loadInput(){
+    var current_url = window.location.href;
+    var split_url = current_url.split("/");
+    console.log('split_url '+split_url);
+    var pk = split_url[4];
+    console.log('pk '+pk);
+    document.getElementById("batch_k").value = pk;
+    console.log('input' , document.getElementById("batch_k").value)
+}
+</script>
+{% endblock %}

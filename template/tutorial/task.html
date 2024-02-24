@@ -1,0 +1,30 @@
+{% extends "co-ordinator-header.html" %}
+{% block body%}
+<!-- <h6>Task is ruuning please wait until task completed</h6> -->
+<br>
+<h6>Task Detail Table</h6>
+<br>
+<a class="nav-link{% if request.resolver_match.view_name == 'education' %} active{% endif %}" href="{% url 'education' %}">Add Data Task</a>
+<a class="nav-link{% if request.resolver_match.view_name == 'education' %} active{% endif %}" href="{% url 'education' %}">Delete Data Task</a>
+<br>
+<table class="table mt-3">
+    <thead class="thead-dark">
+        <tr>
+            <th scope="col">SN</th>
+            <th scope="col">Task Id</th>
+            <th scope="col">Status</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>0</td>
+            <td>{{api_data}}</td>
+            <td>
+                <button type="button" class="btn btn-warning">PENDING</button>
+                <button type="button" class="btn btn-danger">ERROR</button>
+                <button type="button" class="btn btn-success">SUCCESS</button>
+            </td>
+        </tr>
+    </tbody>
+</table>
+{% endblock %}

@@ -1,0 +1,52 @@
+{% extends 'student-header.html'%}
+{% block body%}
+<div class="app-page-title">
+    <div class="page-title-wrapper">
+        <div class="page-title-heading">
+            <div class="page-title-icon">
+                <i class="pe-7s-study icon-gradient bg-mean-fruit">
+                </i>
+            </div>
+            <div>Digikull Learning Center
+                <!-- <div class="page-title-subheading">This is an example dashboard created using build-in elements and components.
+                                    </div> -->
+            </div>
+        </div>
+    </div>
+</div>
+{% for i in all_programs%}
+<div class="row">
+    <div class="col-md-8">
+        <div class="main-card mb-3 card">
+            <!-- <div class="card-header"></div> -->
+            <div class="card-body">
+                <div class="app-page-title">
+                    <div class="page-title-wrapper">
+                        <div class="page-title-heading">
+                            <div class="page-title-icon">
+                                <i class="pe-7s-study icon-gradient bg-mean-fruit">
+                                </i>
+                            </div>
+                            <div><span style="font-size: 18px;font-weight: bold;">{{i.CategoryName}}</span>
+                                <!-- <div class="page-title-subheading">This is an example dashboard created using build-in elements and components.
+                                    </div> -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-8">
+                        <button class="mb-2 mr-2 btn btn-primary">Progress<span class="badge badge-pill badge-light">50 %</span></button>
+                    </div>
+                    <div class="col-md-4 mx-auto">
+                        <button class="btn btn-primary form-control" onclick="location.href = '/allcourses';">Go To Program</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+    </div>
+</div>
+{% endfor %}
+{% endblock %}

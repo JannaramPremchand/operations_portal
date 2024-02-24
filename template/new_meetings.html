@@ -1,0 +1,53 @@
+{% extends 'co-ordinator-header.html'%}
+{% block title %}Create New Meetings{% endblock %}
+{% block body%}
+<div class="app-page-title">
+    <div class="page-title-wrapper">
+        <div class="page-title-heading">
+            <div class="page-title-icon">
+                <button class="btn" onclick="history.back()" style="margin-left: -10px;">
+                    <i class="pe-7s-left-arrow pe-2x"></i>
+                </button>
+            </div>
+            <div>Create New Meetings
+                <div class="page-title-subheading">
+                </div>
+            </div>
+        </div>
+            {% for message in messages%}
+            <div class="page-title-heading m-auto">{{message}}</div>
+            {% endfor %}
+    </div>
+</div>
+<div class="container">
+    <div class="main-card mb-3 card">
+        <div class="card-body">
+            <!-- <h5 class="card-title">Controls Types</h5> -->
+            <form method="POST">
+                {% csrf_token %}
+                
+                <div class="form-row">
+                  <div class="col">
+                    <div class="form-group">
+                      <label>Start</label>
+                      <input class="form-control" name="ev-start" type="datetime-local">
+                    </div>
+                  </div>
+                  <div class="col">
+                    <div class="form-group">
+                      <label>End</label>
+                      <input class="form-control" name="ev-end" type="datetime-local">
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label>Subject</label>
+                  <input class="form-control" name="ev-subject" type="text">
+                </div>
+                <input class="btn btn-primary mr-2" type="submit" value="Create" />
+                <a class="btn btn-secondary" href="/calendar">Cancel</a>
+              </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

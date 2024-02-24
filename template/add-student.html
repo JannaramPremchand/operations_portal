@@ -1,0 +1,94 @@
+{% extends 'co-ordinator-header.html'%}
+{% block title %}Add Student{% endblock %}
+{% block body%}
+<div class="app-page-title">
+    <div class="page-title-wrapper">
+        <div class="page-title-heading">
+            <div class="page-title-icon">
+                <button class="btn" onclick="history.back()" style="margin-left: -10px;">
+                    <i class="pe-7s-left-arrow pe-2x"></i>
+                </button>
+            </div>
+            <div>Add Student
+                <div class="page-title-subheading">
+                </div>
+            </div>
+        </div>
+        {% for message in messages%}
+        <div class="page-title-heading m-auto">{{message}}</div>
+        {% endfor %}
+    </div>
+</div>
+<div class="container">
+    <div class="main-card mb-3 card">
+        <div class="card-body">
+            <!-- <h5 class="card-title">Controls Types</h5> -->
+            <form class="" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="form-row">
+                    <div class="position-relative form-group col-md-6">
+                        <label for="StudentFirstName" class="">Student First Name</label>
+                        <input name="student_first_name" id="student_first_name" type="text" class="form-control" value="" placeholder="Enetr Student First Name" required>
+                    </div>
+                    <div class="position-relative form-group col-md-6">
+                        <label for="StudentLastName" class="">Student Last Name</label>
+                        <input name="student_last_name" id="student_last_name" type="text" class="form-control" value="" placeholder="Enetr Student Last Name" required>
+                    </div>
+                    <div class="position-relative form-group col-md-6">
+                        <label for="StudentEmail" class="">Student Email</label>
+                        <input name="student_email" id="student_email" type="email" class="form-control" value="" placeholder="Enter Student Email" required>
+                    </div>
+                    <div class="position-relative form-group col-md-6">
+                        <label for="StudentPassword" class="">Student Password</label>
+                        <input name="student_password" id="student_password" type="password" class="form-control" value="" placeholder="Enter Student Password" autocomplete="new-password" required>
+                    </div>
+                    <div class="position-relative form-group col-md-6">
+                        <label for="BatchStartDate" class="">Batch Start Date</label>
+                        <input name="start_date" id="start_date" type="date" value="" class="form-control" required>
+                    </div>
+                    <div class="position-relative form-group col-md-6">
+                        <label for="StudentStatus" class="">Status</label>
+                        <select class="form-control" name="student_status" id="student_status" required>
+                            <option selected>Choose Status</option>
+                            <option value="Active">Active</option>
+                            <option value="Collection">Collection</option>
+                            <option value="Not Active">Not Active</option>
+                            <option value="Active But Lagging">Active But Lagging</option>
+                            <option value="Dropped Before One Month">Dropped Before One Month</option>
+                            <option value="Can't Become Active">Can't Become Active</option>
+                            <option value="Ready For Placement">Ready For Placement</option>
+                            <option value="Preparing For Placement">Preparing For Placement</option>
+                            <option value="Willing To Shift To Future Batchba">Willing To Shift To Future Batch</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="d-flex justify-content-end">
+                    <button class="mt-1 btn b-btn">Add Student</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p class="mb-0">Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+</script>
+{% endblock %}

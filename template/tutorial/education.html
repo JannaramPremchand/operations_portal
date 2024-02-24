@@ -1,0 +1,55 @@
+<!-- Copyright (c) Microsoft Corporation.
+     Licensed under the MIT License. -->
+
+<!-- <CalendarSnippet> -->
+{% extends "tutorial/layout.html" %}
+{% block content %}
+<h1>Education</h1>
+<a href="/education/new" class="btn btn-light btn-sm mb-3">Grade</a>
+<style>
+  table, th, td {
+    border:1px solid black;
+  }
+  </style>
+
+<table style="width:100%">
+  <tr>
+    <th>ID</th>
+    <th>Name</th>
+    <th>Email</th>
+    <th>Assignments</th>
+    <th>duedate</th>
+    <th>submiteddate</th>
+    <th>unsubmiteddate</th>
+    <th>returndate</th>
+    <th>reassingndate</th>
+    <th>status</th>
+    <th>feedback</th>
+    <th>points</th>
+    <th>Assignment_delay</th>
+    <th>Assignment_check_delay</th>
+  </tr>
+    <tr>
+      <td></td>
+    </tr>
+  {% for i in api_list %}
+    <tr>
+      <td>{{i.id}}</td>
+      <td>{{i.Name}}</td>
+      <td>{{i.Email}}</td>
+      <td>{{i.assingments}}</td>
+      <td>{{i.duedate}}</td>
+      <td>{{i.submiteddate}}</td>
+      <td>{{i.unsubmiteddate}}</td>
+      <td>{{i.returndate}}</td>
+      <td>{{i.reassingndate}}</td>
+      <td>{{i.status}}</td>
+      <td>{{i.feedback}}</td>
+      <td>{{i.points}}</td>
+      <td>{{i.assingment_delay}}</td>
+      <td>{{i.assingment_check_delay}}</td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}
+<!-- </CalendarSnippet> -->

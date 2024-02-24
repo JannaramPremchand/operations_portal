@@ -1,0 +1,168 @@
+{% extends 'student-header.html'%}
+{% block title %}Raise Ticket{% endblock %}
+{% block body%}
+<div class="app-page-title">
+    <div class="page-title-wrapper">
+        <div class="page-title-heading">
+            <div class="page-title-icon">
+                <button class="btn" onclick="history.back()" style="margin-left: -10px;">
+                    <i class="pe-7s-left-arrow pe-2x"></i>
+                </button>
+            </div>
+            <div>Raise Ticket
+                <div class="page-title-subheading">
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+{% if messages %}
+<div class="main-card mb-3 card">
+        <div class="card-body">
+            
+            {% for message in messages %}
+                <h5>{{ message }}</h5>
+            {% endfor %}
+            
+        </div>
+</div>
+{% endif %}
+<div class="container">
+    <div class="main-card mb-3 card">
+        <div class="card-body">
+            <!-- <h5 class="card-title">Controls Types</h5> -->
+            <form class="needs-validation" method="POST" enctype="multipart/form-data">
+
+                <div class="form-row">
+                    {% csrf_token %}
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="inputStatus">Category</label>
+                            <select name ="question-subject"  id="question-subject" class="form-control-sm custom-select">
+                                <option selected disabled>Choose a Category</option>
+                                {% for i in ticket_List %}
+                                <option value="{{i.ticketcategoryid}}">{{i.ticketcategoryname}}</option>
+                                {% endfor %}
+
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="inputStatus">Subcategory</label>
+                            <select name ="question-topic" id="question-topic" class="form-control-sm custom-select" name="topic">
+                                <option selected disabled>Choose a subCategory</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- <div class="position-relative form-group col-md-6">
+                        
+                        <label for="StudentStatus" class="">Category</label>
+                        
+                        <select class="form-control" name="ticket_category" id="ticket_category" required>
+                            {% for i in ticket_List %}
+                            <option value="{{i.ticketcategoryname}}">{{i.ticketcategoryname}}</option>
+                            {% endfor %}
+                        </select>
+                       
+                    </div>
+                    <div class="position-relative form-group col-md-6">
+                        <label for="StudentStatus" class="">Sub-Category</label>
+                        <select class="form-control" name="ticket_subcategory" id="ticket_subcategory" required>
+                            {% for i in ticket_List1 %}
+                            <option value="{{i.ticketsubcategoryname}}">{{i.ticketsubcategoryname}}</option>
+                            {% endfor %}
+                        </select>
+                    </div> -->
+                    <div class="position-relative form-group col-md-12">
+                        <label for="SelectBatch" class="">Write issue</label>
+                        <textarea class="form-control" name="student_issue" id="student_issue" rows="4"
+                            required></textarea>
+                    </div>
+                </div>
+                <div class="d-flex justify-content-end">
+                    <button class="mt-1 btn b-btn" id="submit">submit</button>
+                    
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- Modal -->
+<!-- <button type="button" class="btn mr-2 mb-2" data-toggle="modal" data-target="#exampleModal{{1}}" style="color: #FFDE59;background: #1B1642;">
+    <i class="pe-7s-pen"></i>
+</button> -->
+<!-- <div class="modal fade mt-5" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="false">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel"></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                       we have recive your concern We will contact soon in while.
+                    </div>
+                    </div>
+                </div>
+            </div>
+         
+        </div>
+    </div>
+</div> -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p class="mb-0">Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an
+                    unknown printer took a galley of type and scrambled.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+</script>
+
+{% block javascript %}
+<script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
+    crossorigin="anonymous"></script>
+<script>
+    $("#question-subject").change(function () {
+        const subjectId = $(this).val();  // get the selected subject ID from the HTML dropdown list 
+        $.ajax({                       // initialize an AJAX request
+            type: "POST",
+            url: '{% url "getcategoryajax" %}',
+            data: {
+                'subjectId': subjectId,       // add the country id to the POST parameters
+                'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val(),
+            },
+            success: function (data) {   // `data` is from `get_topics_ajax` view function
+                let html_data = '<option value="">---------</option>';
+                console.log('hello')
+                console.log(data)
+                data.forEach(function (data) {
+                    html_data += `<option value="${data.ticketsubcategoryid}">${data.ticketsubcategoryname}</option>`
+                });
+                $("#question-topic").html(html_data); // replace the contents of the topic input with the data that came from the server
+            }
+        });
+    });
+</script>
+{% endblock javascript %}
+{% endblock %}

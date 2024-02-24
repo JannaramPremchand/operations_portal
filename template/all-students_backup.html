@@ -1,0 +1,147 @@
+{% extends 'co-ordinator-header.html'%}
+{% block title %}All Students{% endblock %}
+{% block body%}
+<div class="app-page-title">
+    <div class="page-title-wrapper">
+        <div class="page-title-heading">
+            <div class="page-title-icon">
+                <button class="btn" onclick="history.back()" style="margin-left: -10px;">
+                    <i class="pe-7s-left-arrow pe-2x"></i>
+                </button>
+            </div>
+            <div>
+                Digikull Learning Center
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="main-card mb-3 card">
+            <div class="card-header p-2" style="height: 5rem;">
+                <div class="p-2 flex-fill d-flex justify-content-start">
+                    <div class="card-title mt-2">All Student Details</div>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="d-flex justify-content-end">
+                    <div class="position-relative form-group d-flex justify-content-end">
+                        <div class="input-group ml-5">
+                            <div class="input-group-prepend"><span class="input-group-text"><i class="pe-7s-search">
+                                    </i></span></div>
+                            <input placeholder="Type Student Name" id="myInput" onkeyup="mySearchFunction()" type="text" class="form-control">
+                        </div>
+                    </div>
+                    <div class="position-relative form-group d-flex">
+                    </div>
+                </div>
+                <div class="table-responsive">
+                    <table id="myTable" class="mb-0 table table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                <th>Student Name</th>
+                                <th>Student Email</th>
+                                <th>Batch Name</th>
+                                <th>Status</th>
+                                <th>Start Date</th>
+                                <th>End Date</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for i in resultset %}
+                            <tr>
+                                <td>
+                                    <a href="/studentattendancedetails/{{i.StudentId}}" class="btn b-btn form-control">{{i.StudentName}}</a>
+                                </td>
+                                <td>{{i.StudentEmail}}</td>
+                                <td>{{i.BatchName}}</td>
+                                <td>{{i.Status}}</td>
+                                <td>{{i.StartDate|date:"M d, Y"}}</td>
+                                <td>{{i.EndDate|date:"M d, Y"}}</td>                                <td>
+                        <button type="button" class="btn mr-2 mb-2" data-toggle="modal" data-target="#exampleModal{{i.StudentId}}" style="color: #FFDE59;background: #1B1642;">
+                            <i class="pe-7s-pen"></i>
+                        </button>
+                        <div class="modal fade mt-5" id="exampleModal{{i.StudentId}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="false">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel"></h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <button class="btn b-btn form-control" onclick="location.href = '/student_status_update/{{i.StudentId}}';">Status Update</button>
+                                            </div>
+                                            <div class="col-md-12 mt-3">
+                                                <button class="btn b-btn form-control" onclick="location.href = '/transfer_student/{{i.StudentId}}';">Transfer Student</button>
+                                            </div>
+                                            <div class="col-md-12 mt-3">
+                                                <button class="btn b-btn form-control" onclick="location.href = '/student_notes/{{i.StudentId}}';">Comment</button>
+                                            </div>                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                        <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<script type="text/javascript">
+$('#myTable').after('<nav id="paginationnav" class="mt-3 float-right"><ul class="pagination" id="nav" ></ul></nav>');
+var rowsShown = 75;
+var rowsTotal = $('#myTable tbody tr').length;
+var numPages = rowsTotal / rowsShown;
+for (i = 0; i < numPages; i++) {
+    var pageNum = i + 1;
+    $('#nav').append('<li class="page-item"><a class="page-link" href="#" rel="' + i + '">' + pageNum + '</a></li>');
+}
+$('#myTable tbody tr').hide();
+$('#myTable tbody tr').slice(0, rowsShown).show();
+$('#nav a:first').addClass('active');
+$('#nav a').bind('click', function() {
+
+    $('#nav a').removeClass('active');
+    $(this).addClass('active');
+    var currPage = $(this).attr('rel');
+    var startItem = currPage * rowsShown;
+    var endItem = startItem + rowsShown;
+    $('#myTable tbody tr').css('opacity', '0.0').hide().slice(startItem, endItem).
+    css('display', 'table-row').animate({ opacity: 1 }, 300);
+});
+</script>
+<script type="text/javascript">
+function mySearchFunction() {
+    var input, filter, table, tr, td, i, txtValue;
+    input = document.getElementById("myInput");
+    filter = input.value.toUpperCase();
+    table = document.getElementById("myTable");
+    tr = table.getElementsByTagName("tr");
+    for (i = 0; i < tr.length; i++) {
+        td = tr[i].getElementsByTagName("td")[0];
+        if (td) {
+            txtValue = td.textContent || td.innerText;
+            if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                tr[i].style.display = "";
+            } else {
+                tr[i].style.display = "none";
+            }
+        }
+    }
+}
+</script>
+{% endblock %}

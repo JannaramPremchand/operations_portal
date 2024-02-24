@@ -1,0 +1,32 @@
+app_id: 'e49214b2-a166-4a5a-927e-78897121ca74'
+app_secret: 'Lmt7Q~hQRpvjVQmCSCzt7wmG2FilSJlm3ceA3'
+redirect: "http://localhost:8000/callback"
+scopes:
+  - user.read
+  - mailboxsettings.read
+  - calendars.readwrite
+  - EduAssignments.read
+  - EduAssignments.readBasic
+  - EduAssignments.readWrite
+  - EduAssignments.readWriteBasic
+  - EduRoster.readBasic
+  - EduRoster.read
+  - EduRoster.readBasic
+authority: "https://login.microsoftonline.com/b5e77a2d-6845-4cd5-8cc6-828b3b988bb5"
+
+
+
+
+# app_id: 'e49214b2-a166-4a5a-927e-78897121ca74'
+# app_secret: 'Lmt7Q~hQRpvjVQmCSCzt7wmG2FilSJlm3ceA3'
+# redirect: "http://localhost:8000/callback"
+# scopes:
+#   - user.read
+#   - mailboxsettings.read
+#   - calendars.readwrite
+#   - EduAssignments.read
+#   - EduAssignments.readBasic
+#   - EduAssignments.readWrite
+#   - EduAssignments.readWriteBasic
+  
+# authority: "https://login.microsoftonline.com/b5e77a2d-6845-4cd5-8cc6-828b3b988bb5"

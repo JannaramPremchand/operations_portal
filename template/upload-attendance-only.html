@@ -1,0 +1,81 @@
+{% extends 'co-ordinator-header.html'%}
+{% block title %}Upload Attendance{% endblock %}
+{% block body%}
+<div class="app-page-title">
+    <div class="page-title-wrapper">
+        <div class="page-title-heading">
+            <div class="page-title-icon">
+                <button class="btn" onclick="history.back()" style="margin-left: -10px;">
+                    <i class="pe-7s-left-arrow pe-2x"></i>
+                </button>
+            </div>
+            <div>Upload Attendance
+                <div class="page-title-subheading">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% for message in messages%}
+<div class="row">
+    <div class="col-md-12">
+        <div class="main-card mb-3 card">
+            <div class="card-header p-2" style="height: 5rem;">
+                <div class="p-2 flex-fill d-flex justify-content-start">
+                    <div class="card-title mt-2">{{message}}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endfor %}
+<div class="container">
+    <div class="main-card mb-3 card">
+        <div class="card-body">
+            <!-- <h5 class="card-title">Controls Types</h5> -->
+            <form class="" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="form-row">
+                    <div class="position-relative form-group col-md-12">
+                        <label for="StudentStatus" class="">Select Multiple Batches by pressing Control Key</label>
+                        <select multiple id="batches" name="batches" class="form-control" required>
+                            {% for i in Batch_Details %}
+                            <option value="{{i.BatchId}}">{{i.BatchName}}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="position-relative form-group col-md-12">
+                        <label for="BatchStartDate" class="">Upload Attendance File</label>
+                        <input name="attendanceFile" id="attendanceFile" type="file" value="" class="form-control" required>
+                    </div>
+                </div>
+                <div class="d-flex justify-content-end">
+                    <button class="mt-1 btn b-btn">Upload Attendance</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p class="mb-0">Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+</script>
+{% endblock %}

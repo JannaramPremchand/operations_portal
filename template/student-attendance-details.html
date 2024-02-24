@@ -1,0 +1,300 @@
+{% extends 'co-ordinator-header.html'%}
+{% block title %}Student Attendance Detail{% endblock %}
+{% block body%}
+<div class="app-page-title">
+    <div class="page-title-wrapper">
+        <div class="page-title-heading">
+            <div class="page-title-icon">
+                <button class="btn" onclick="history.back()" style="margin-left: -10px;">
+                    <i class="pe-7s-left-arrow pe-2x"></i>
+                </button>
+            </div>
+            <div>Digikull Learning Center
+                <!-- <div class="page-title-subheading">This is an example dashboard created using build-in elements and components.
+                                    </div> -->
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="main-card mb-3 card">
+            <div class="card-header p-2" style="height: 5rem;">
+                <div class="p-2 flex-fill d-flex justify-content-start">
+                    <div class="card-title mt-2">Student Details </div>
+                </div>
+                <!-- <div class="p-2 flex-fill d-flex justify-content-end">
+                            <button class="btn c-btn p-2 mt-2 mr-2">View Attendance Details</button>
+                            <button class="btn c-btn p-2 mt-2">View Assignment Details</button>
+                        </div> -->
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table id="myTable1" class="mb-0 table table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Email</th>
+				<th>Batch Name</th>
+                                <th>Status</th>
+                                <th>Start Date</th>
+                                <th>End Date</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for i in stu_det %}
+                            <tr>
+                                <td>{{i.StudentId.StudentName}}</td>
+                                <td>{{i.StudentId.StudentEmail}}</td>
+				                <td>{{i.BatchId.BatchName}}</td>
+                                <td>{{i.Status}}</td>
+                                <td>{{i.StartDate}}</td>
+                                <td>{{i.EndDate}}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-12">
+        <ul class="body-tabs body-tabs-layout tabs-animated body-tabs-animated nav">
+            <li class="nav-item">
+                <a role="tab" class="nav-link active" id="tab-0" data-toggle="tab" href="#tab-content-0">
+                    <span>Attendance</span>
+                </a>
+            </li>
+            <!-- <li class="nav-item">
+                <a role="tab" class="nav-link" id="tab-1" data-toggle="tab" href="#tab-content-1">
+                    <span>Assignment</span>
+                </a>
+            </li> -->
+            <li class="nav-item">
+                <a role="tab" class="nav-link" id="tab-2" data-toggle="tab" href="#tab-content-2">
+                    <span>Notes</span>
+                </a>
+            </li>
+        </ul>
+        <div class="tab-content">
+            <div class="tab-pane tabs-animation fade show active" id="tab-content-0" role="tabpanel">
+                <div class="main-card mb-3 card">
+                    <div class="card-header p-2" style="height: 5rem;">
+                        <div class="p-2 flex-fill d-flex justify-content-start">
+                            <div class="card-title mt-2">Attendance Details</div>
+                        </div>
+                        <!-- <div class="p-2 flex-fill d-flex justify-content-end">
+                                    <button class="btn c-btn p-2 mt-2 mr-2">View Attendance Details</button>
+                                    <button class="btn c-btn p-2 mt-2">View Assignment Details</button>
+                                </div> -->
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table id="myTable" class="mb-0 table table-bordered table-hover">
+                                <thead>
+                                    <tr>
+                                        <!-- <th>Name</th> -->
+                                        <th>Batch Name</th>
+                                        <th>Session Name</th>
+                                        <th >Session Date</th>
+                                        <th>Join Time</th>
+                                        <th>Leave Time</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for i in st_att_sum %}
+                                    <tr>
+                                        <!-- <td>{{i.StudentName}}</td> -->
+                                        <td>{{i.BatchName}}</td>
+                                        <td>{{i.sessiontitle}}</td>
+                                        <td>{{i.SessionStartDate|date:"d M, Y - D"}}</td>
+                                        <td>{{i.JoinTime}}</td>
+                                        <td>{{i.LeaveTime}}</td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane tabs-animation fade" id="tab-content-1" role="tabpanel">
+                <div class="main-card mb-3 card">
+                    <div class="card-header p-2" style="height: 5rem;">
+                        <div class="p-2 flex-fill d-flex justify-content-start">
+                            <div class="card-title mt-2">Assignments Details</div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <table id="myTable1" class="mb-0 table table-bordered table-hover">
+                            <thead>
+                                <tr>
+                                    <!-- <th>Name</th>
+                                    <th>Email</th> -->
+                                    <th>Assignment Title</th>
+                                    <th>Percent Finish</th>
+                                    <th>Assignment Property</th>
+                                    <th>Assignment Value</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for i in resultsList%}
+                                <tr>
+                                    <!-- <td>
+                                        {{i.Name}}</td>
+                                    <td>{{i.Email}}</td> -->
+                                    <td>{{i.AssignmentName}}</td>
+                                    <td>{{i.PercentFinish}}</td>
+                                    <td>{{i.AssignmentProperty}}</td>
+                                    <td>{{i.AssignmentValue}}</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane tabs-animation fade" id="tab-content-2" role="tabpanel">
+                <div class="main-card mb-3 card">
+                    <div class="card-header p-2" style="height: 5rem;">
+                        <div class="p-2 flex-fill d-flex justify-content-start">
+                            <div class="card-title mt-2">Notes Details</div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        {% for i in studentNotes %}
+                        <div class="card-text" style="font-weight:bold;">{{i.NotesDate|date:"d M, Y - D"}}</div>
+                        <div class="card-text mt-1" style="font-size: 18px;">{{i.NotesDescription}}</div><br>
+                        <div class="card-text" style="font-weight:bold;">Edited By: {{i.NotesEditor}}</div>
+                        <hr>
+                        {% endfor %}
+                        <!-- <table id="myTable1" class="mb-0 table table-bordered table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Note Date</th>
+                                    <th>Note Description</th>
+                                    <th>Note Editor</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for i in studentNotes %}
+                                <tr>
+                                    <td>{{i.NotesDate}}</td>
+                                    <td>{{i.NotesDescription}}</td>
+                                    <td>{{i.NotesEditor}}</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- <div class="main-card mb-3 card">
+            <div class="card-header p-2" style="height: 5rem;">
+                <div class="p-2 flex-fill d-flex justify-content-start">
+                    <div class="card-title mt-2">Attendance Details</div>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table id="myTable" class="mb-0 table table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Batch Name</th>
+                                <th>Session Name</th>
+                                <th onclick="sortTable()">Session Date</th>
+                                <th>Join Time</th>
+                                <th>Leave Time</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for i in st_att_sum %}
+                            <tr>
+                                <td>{{i.StudentName}}</td>
+                                <td>{{i.BatchName}}</td>
+                                <td>{{i.sessiontitle}}</td>
+                                <td>{{i.SessionStartDate|date:"M d, Y"}}</td>
+                                <td>{{i.JoinTime}}</td>
+                                <td>{{i.LeaveTime}}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div> -->
+        <!-- <div class="main-card mb-3 card">
+            <div class="card-header p-2" style="height: 5rem;">
+                <div class="p-2 flex-fill d-flex justify-content-start">
+                    <div class="card-title mt-2">Assignments Details</div>
+                </div>
+            </div>
+            <div class="card-body">
+                <table id="myTable1" class="mb-0 table table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Percent Finish</th>
+                        <th>Assignment Title</th>
+                        <th>Assignment Property</th>
+                        <th>Assignment Value</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for i in resultsList%}
+                    <tr>
+                        <td>
+                            {{i.Name}}</td>
+                        <td>{{i.Email}}</td>
+                        <td>{{i.PercentFinish}}</td>
+                        <td>{{i.AssignmentName}}</td>
+                        <td>{{i.AssignmentProperty}}</td>
+                        <td>{{i.AssignmentValue}}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            </div>
+        </div> -->
+    </div>
+</div>
+<script>
+function sortTable() {
+  var table, rows, switching, i, x, y, shouldSwitch;
+  table = document.getElementById("myTable");
+  switching = true;
+  /*Make a loop that will continue until
+  no switching has been done:*/
+  while (switching) {
+    //start by saying: no switching is done:
+    switching = false;
+    rows = table.rows;
+    /*Loop through all table rows (except the
+    first, which contains table headers):*/
+    for (i = 1; i < (rows.length - 1); i++) {
+      //start by saying there should be no switching:
+      shouldSwitch = false;
+      /*Get the two elements you want to compare,
+      one from current row and one from the next:*/
+      x = rows[i].getElementsByTagName("td")[3];
+      y = rows[i + 1].getElementsByTagName("td")[3];
+      //check if the two rows should switch place:
+      if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+        //if so, mark as a switch and break the loop:
+        shouldSwitch = true;
+        break;
+      }
+    }
+    if (shouldSwitch) {
+      /*If a switch has been marked, make the switch
+      and mark that a switch has been done:*/
+      rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+      switching = true;
+    }
+  }
+}
+</script>
+{% endblock %}

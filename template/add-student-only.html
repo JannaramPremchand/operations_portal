@@ -1,0 +1,66 @@
+{% extends 'co-ordinator-header.html'%}
+{% block body%}
+<div class="app-page-title">
+    <div class="page-title-wrapper">
+        <div class="page-title-heading">
+            <div class="page-title-icon">
+                <button class="btn" onclick="history.back()" style="margin-left: -10px;">
+                    <i class="pe-7s-left-arrow pe-2x"></i>
+                </button>
+            </div>
+            <div>Add Student
+                <div class="page-title-subheading">
+                </div>
+            </div>
+        </div>
+        {% for message in messages%}
+        <div class="page-title-heading m-auto">{{message}}</div>
+        {% endfor %}
+        <div class="page-title-actions">
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <button type="button" id="import_Student" name="import_Student" class="btn mr-2 ml-3" style="color: #FFDE59;background: #1B1642;">
+                    Bulk Import<i class="ml-2 fa fa-upload"></i>
+                </button>
+                <input type="file" onchange="this.form.submit()" id="import_file" name="import_file" accept=".csv" style="display:none" />
+            </form>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="main-card mb-3 card">
+        <div class="card-body">
+            <!-- <h5 class="card-title">Controls Types</h5> -->
+            <form class="" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="form-row">
+                    <div class="position-relative form-group col-md-6">
+                        <label for="StudentFirstName" class="">Student First Name</label>
+                        <input name="student_first_name" id="student_first_name" type="text" class="form-control" value="" placeholder="Enetr Student First Name" required>
+                    </div>
+                    <div class="position-relative form-group col-md-6">
+                        <label for="StudentLastName" class="">Student Last Name</label>
+                        <input name="student_last_name" id="student_last_name" type="text" class="form-control" value="" placeholder="Enetr Student Last Name" required>
+                    </div>
+                    <div class="position-relative form-group col-md-6">
+                        <label for="StudentEmail" class="">Student Email</label>
+                        <input name="student_email" id="student_email" type="email" class="form-control" value="" placeholder="Enter Student Email" required>
+                    </div>
+                    <div class="position-relative form-group col-md-6">
+                        <label for="StudentPassword" class="">Student Password</label>
+                        <input name="student_password" id="student_password" type="password" class="form-control" value="" placeholder="Enter Student Password" autocomplete="new-password" required>
+                    </div>
+                </div>
+                <div class="d-flex justify-content-end">
+                    <button class="mt-1 btn b-btn">Add Student</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+document.getElementById('import_Student').onclick = function() {
+    document.getElementById('import_file').click();
+};
+</script>
+{% endblock %}

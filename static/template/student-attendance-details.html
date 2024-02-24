@@ -1,0 +1,63 @@
+{% extends 'co-ordinator-header.html'%}
+{% block body%}
+<div class="app-page-title">
+    <div class="page-title-wrapper">
+        <div class="page-title-heading">
+            <div class="page-title-icon">
+                <button class="btn" onclick="history.back()" style="margin-left: -10px;">
+                                <i class="pe-7s-left-arrow pe-2x" ></i>
+                            </button>
+            </div>
+            <div>Digikull Learning Center
+                <!-- <div class="page-title-subheading">This is an example dashboard created using build-in elements and components.
+                                    </div> -->
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="main-card mb-3 card">
+            <div class="card-header p-2" style="height: 5rem;">
+                <div class="p-2 flex-fill d-flex justify-content-start">
+                            
+                            <div class="card-title mt-2">Attendance Details</div>
+                        </div>
+                
+                <!-- <div class="p-2 flex-fill d-flex justify-content-end">
+                            <button class="btn c-btn p-2 mt-2 mr-2">View Attendance Details</button>
+                            <button class="btn c-btn p-2 mt-2">View Assignment Details</button>
+                        </div> -->
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table id="myTable" class="mb-0 table table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Batch Name</th>
+                                <th>Session Name</th>
+                                <th>Sessions Date</th>
+                                <th>Join Time</th>
+                                <th>Leave Time</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        {% for i in st_att_sum %}
+                        <tr>
+                            <td>{{i.StudentId.StudentName}}</td>
+                            <td>{{i.SessionId.BatchId.BatchName}}</td>
+                            <td>{{i.SessionId.sessiontitle}}</td>
+                            <td>{{i.SessionId.SessionStartDate}}</td>
+                            <td>{{i.JoinTime}}</td>
+                            <td>{{i.LeaveTime}}</td>
+                        </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

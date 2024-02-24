@@ -1,0 +1,80 @@
+{% extends 'student-header.html'%}
+{% block body%}
+<div class="app-page-title">
+    <div class="page-title-wrapper">
+        <div class="page-title-heading">
+            <div class="page-title-icon">
+                <i class="pe-7s-study icon-gradient bg-mean-fruit">
+                </i>
+            </div>
+            <div>Digikull Learning Center
+                <!-- <div class="page-title-subheading">This is an example dashboard created using build-in elements and components.
+                                    </div> -->
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="main-card mb-3 card">
+            <div class="card-header p-2" style="height: 5rem;">
+                <div class="p-2 flex-fill d-flex justify-content-start">
+                            
+                            <div class="card-title mt-2">Assignment Details</div>
+                        </div>
+                
+                <!-- <div class="p-2 flex-fill d-flex justify-content-end">
+                            <button class="btn c-btn p-2 mt-2 mr-2">View Attendance Details</button>
+                            <button class="btn c-btn p-2 mt-2">View Assignment Details</button>
+                        </div> -->
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table id="myTable" class="mb-0 table table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                <!-- <th>studentId</th>
+                                <th>BatchId</th> -->
+                                <th>Name</th>
+                                <!-- <th>Email</th> -->
+                                <th>Assignments</th>
+                                <th>Duedate</th>
+                                <th>Submiteddate</th>
+                                <!-- <th>unsubmiteddate</th> -->
+                                <th>Returndate</th>
+                                <!-- <th>reassingndate</th> -->
+                                <th>Status</th>
+                                <th>Feedback</th>
+                                <th>Points</th>
+                                <th>Assingment delay (days)</th>
+                                <th>Assingment check delay (days)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        {% for i in Assignment_data %}
+                        <tr>
+                            <!-- <td>{{i.studentid_id}}</td>
+                            <td>{{i.batchid_id}}</td> -->
+                            <td>{{i.Name}}</td>
+                            <!-- <td>{{i.Email}}</td> -->
+                            <td>{{i.assignments}}</td>
+                            <td>{{i.duedate}}</td>
+                            <td>{{i.submiteddate}}</td>
+                            <!-- <td>{{i.unsubmiteddate}}</td> -->
+                            <td>{{i.returndate}}</td>
+                            <!-- <td>{{i.reassingndate}}</td> -->
+                            <td>{{i.status}}</td>
+                            <td>{{i.feedback}}</td>
+                            <td>{{i.points}}</td>
+                            <td>{{i.assingment_delay}}</td>
+                            <td>{{i.assingment_check_delay}}</td>
+                        </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

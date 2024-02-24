@@ -1,0 +1,171 @@
+{% extends 'co-ordinator-header.html'%}
+{% block body%}
+<div class="app-page-title">
+    <div class="page-title-wrapper">
+        <div class="page-title-heading">
+            <div class="page-title-icon">
+                <button class="btn" onclick="history.back()" style="margin-left: -10px;">
+                    <i class="pe-7s-left-arrow pe-2x"></i>
+                </button>
+            </div>
+            <div>Grades
+                <div class="page-title-subheading">
+                </div>
+            </div>
+        </div>
+        <div class="page-title-actions">
+            <button type="button" data-toggle="modal" data-target=".bd-example-modal-sm" style="color: #FFDE59;background: #1B1642;">
+                Upload Grades<i class="ml-2 fa fa-upload"></i>
+            </button>
+            <!-- Small modal -->
+            <div class="modal bd-example-modal-sm mt-5" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" data-backdrop="false">
+                <div class="modal-dialog modal-sm">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLongTitle">Choose One</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <form class="" method="POST" enctype="multipart/form-data">
+                                {% csrf_token %}
+                                <div class="form-group">
+                                    <fieldset class="position-relative form-group">
+                                        <div class="position-relative form-check">
+                                            <label class="form-check-label">
+                                                <input name="radio1" type="radio" class="form-check-input" id="team_grades" name="team_grades" value="TEAMS">
+                                                TEAMS
+                                            </label>
+                                            <input type="file" onchange="this.form.submit()" id="team_grades_file" name="team_grades_file" accept=".csv" style="display:none" />
+                                        </div>
+                                        <div class="position-relative form-check">
+                                            <label class="form-check-label">
+                                                <input name="radio1" type="radio" class="form-check-input" id="repel_grades" name="repel_grades" value="REPL">
+                                                REPL
+                                            </label>
+                                            <input type="file" onchange="this.form.submit()" id="repel_grades_file" name="repel_grades_file" accept=".csv" style="display:none" />
+                                        </div>
+                                    </fieldset>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="main-card mb-3 card">
+    <div class="card-body">
+        {% for message in messages%}
+        <h4 align="center" style="color: #FFDE59;">{{message}}</h4>
+        {% endfor %}
+        <div class="d-flex">
+            <!-- <form method="POST" enctype="multipart/form-data"> -->
+            {% csrf_token %}
+            <div class="position-relative form-group d-flex">
+                <!-- <select type="select" id="adv_filter_select" name="adv_filter_select" class="custom-select">
+                                                <option value="">Advanced Filtering</option>
+                                                <option>Top 10 Students</option>
+                                                <option>Students with Highest Placement Chance</option>
+                                                <option>Students with Lowest Placement Chance</option>
+                                            </select>
+                                            <button class="btn ml-5 mr-5" id="adv_filter_go" style="color: #FFDE59;background: #1B1642;width: 100px;" onclick="myFunction()">Go</button> -->
+                <div class="input-group">
+                    <div class="input-group-prepend"><span class="input-group-text"><i class="pe-7s-search">
+                            </i></span></div>
+                    <input placeholder="username" id="myInput" onkeyup="mySearchFunction()" type="text" class="form-control">
+                </div>
+            </div>
+            <div class="position-relative form-group d-flex">
+            </div>
+            <!-- </form> -->
+        </div>
+        <div class="table-responsive">
+            <table id="myTable" class="mb-0 table table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Percent Finish</th>
+                        <th>Assignment Title</th>
+                        <th>Assignment Property</th>
+                        <th>Assignment Value</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for i in resultsList%}
+                    <tr>
+                        <td>
+                            {{i.Name}}</td>
+                        <td>{{i.Email}}</td>
+                        <td>{{i.PercentFinish}}</td>
+                        <td>{{i.AssignmentName}}</td>
+                        <td>{{i.AssignmentProperty}}</td>
+                        <td>{{i.AssignmentValue}}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="../static/scripts/main.js"></script>
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<script type="text/javascript">
+document.getElementById('team_grades').onclick = function() {
+    document.getElementById('team_grades_file').click();
+};
+document.getElementById('repel_grades').onclick = function() {
+    document.getElementById('repel_grades_file').click();
+};
+</script>
+<script type="text/javascript">
+$('#myTable').after('<nav id="paginationnav" class="mt-3 float-right"><ul class="pagination" id="nav" ></ul></nav>');
+var rowsShown = 150;
+var rowsTotal = $('#myTable tbody tr').length;
+var numPages = rowsTotal / rowsShown;
+for (i = 0; i < numPages; i++) {
+    var pageNum = i + 1;
+    $('#nav').append('<li class="page-item"><a class="page-link" href="#" rel="' + i + '">' + pageNum + '</a></li>');
+}
+$('#myTable tbody tr').hide();
+$('#myTable tbody tr').slice(0, rowsShown).show();
+$('#nav a:first').addClass('active');
+$('#nav a').bind('click', function() {
+
+    $('#nav a').removeClass('active');
+    $(this).addClass('active');
+    var currPage = $(this).attr('rel');
+    var startItem = currPage * rowsShown;
+    var endItem = startItem + rowsShown;
+    $('#myTable tbody tr').css('opacity', '0.0').hide().slice(startItem, endItem).
+    css('display', 'table-row').animate({ opacity: 1 }, 300);
+});
+</script>
+<script type="text/javascript">
+function mySearchFunction() {
+    var input, filter, table, tr, td, i, txtValue;
+    input = document.getElementById("myInput");
+    filter = input.value.toUpperCase();
+    table = document.getElementById("myTable");
+    tr = table.getElementsByTagName("tr");
+    for (i = 0; i < tr.length; i++) {
+        td = tr[i].getElementsByTagName("td")[0];
+        if (td) {
+            txtValue = td.textContent || td.innerText;
+            if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                tr[i].style.display = "";
+            } else {
+                tr[i].style.display = "none";
+            }
+        }
+    }
+}
+</script>
+
+{% endblock %}

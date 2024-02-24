@@ -1,0 +1,117 @@
+{% extends 'co-ordinator-header.html'%}
+{% block body%}
+<div class="app-page-title">
+    <div class="page-title-wrapper">
+        <div class="page-title-heading">
+            <div class="page-title-icon">
+                <button class="btn" onclick="history.back()" style="margin-left: -10px;">
+                    <i class="pe-7s-home pe-2x"></i>
+                </button>
+            </div>
+            <div>Digikull Learning Center
+                <div class="page-title-subheading">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="main-card mb-3 card">
+    <div class="card-header p-2" style="height: 5rem;">
+        <div class="card-title mt-2 ml-3">Batches</div>
+        <!-- <div class="p-2 flex-fill d-flex justify-content-end">
+                            <button class="btn c-btn p-2 mt-2 mr-2">View Attendance Details</button>
+                            <button class="btn c-btn p-2 mt-2">View Assignment Details</button>
+                        </div> -->
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table id="myTable" class="mb-0 table table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <th>Batch Name</th>
+                        <th>Start Date</th>
+                        <th>Status</th>
+                        <th>Category</th>
+                        <!-- <th></th>
+                        <th></th> -->
+                        {% if request.user.username == 'admin' %}
+                        <th></th>
+                        <th></th>
+                        {% endif %}
+                    </tr>
+                </thead>
+                <!-- <tbody> -->
+                {% for i in info %}
+                <tr>
+                    <td>{{i.BatchName}}</td>
+                    <td>{{i.BatchStartDate}}</td>
+                    <td>{{i.StatusId.StatusName}}</td>
+                    <td>{{i.CategoryId.CategoryName}}</td>
+                    <!-- <td><button class="btn b-btn form-control" onclick="location.href = '/batch_details/{{i.BatchId}}';">View Attendance</button></td>
+                    <td><button class="btn b-btn form-control" onclick="location.href = '/assignments/{{i.BatchId}}';">View Assignments</button></td> -->
+                    {% if request.user.username == 'admin' %}
+                    <td><button class="btn b-btn form-control" onclick="location.href = '/batch_students/{{i.BatchId}}';">Details</button></td>
+                    <td><button class="btn b-btn form-control" onclick="location.href = '/update_batch/{{i.BatchId}}';">Update</button></td>
+                    {% endif %}
+                </tr>
+                {% endfor %}
+                <!-- </tbody> -->
+            </table>
+        </div>
+    </div>
+</div>
+<!-- <div class="row">
+    {% for i in info %}
+    <div class="col-md-6">
+        <div class="main-card mb-3 card">
+            <div class="card-header">{{i.BatchName}}</div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-4">
+                        <h5 class="b-card-title">Start Date</h5>
+                    </div>
+                    <div class="col-md-1">
+                        <h5 class="b-card-title">:</h5>
+                    </div>
+                    <div class="col-md-7">
+                        <h5 class="b-card-title">{{i.BatchStartDate}}</h5>
+                    </div>
+                    <div class="col-md-4">
+                        <h5 class="b-card-title">Status</h5>
+                    </div>
+                    <div class="col-md-1">
+                        <h5 class="b-card-title">:</h5>
+                    </div>
+                    <div class="col-md-7">
+                        <h5 class="b-card-title">{{i.BatchStatus}}</h5>
+                    </div>
+                    <div class="col-md-4">
+                        <h5 class="b-card-title">Category
+                    </div>
+                    <div class="col-md-1">
+                        <h5 class="b-card-title">:</h5>
+                    </div>
+                    <div class="col-md-7">
+                        <h5 class="b-card-title">{{i.CategoryId.CategoryName}}</h5>
+                    </div>
+                    <div class="col-md-4">
+                        <h5 class="b-card-title">No. of Students</h5>
+                    </div>
+                    <div class="col-md-1">
+                        <h5 class="b-card-title">:</h5>
+                    </div>
+                    <div class="col-md-7">
+                        <h5 class="b-card-title">
+                            {{i.Session.SessionStartDate}}
+                        </h5>
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer">
+                <button class="btn b-btn form-control" onclick="location.href = '/batch_details/{{i.BatchId}}';">View Details</button>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div> -->
+{% endblock %}

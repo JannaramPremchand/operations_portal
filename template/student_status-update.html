@@ -1,0 +1,56 @@
+{% extends 'co-ordinator-header.html'%}
+{% block title %}Update Status{% endblock %}
+{% block body%}
+<div class="app-page-title">
+    <div class="page-title-wrapper">
+        <div class="page-title-heading">
+            <div class="page-title-icon">
+                <button class="btn" onclick="history.back()" style="margin-left: -10px;">
+                    <i class="pe-7s-left-arrow pe-2x"></i>
+                </button>
+            </div>
+            <div>Update Status
+                <div class="page-title-subheading">
+                </div>
+            </div>
+        </div>
+        {% for message in messages%}
+        <div class="page-title-heading m-auto">{{message}}</div>
+        {% endfor %}
+    </div>
+</div>
+<div class="container">
+    <div class="main-card mb-3 card">
+        <div class="card-body">
+            <!-- <h5 class="card-title">Controls Types</h5> -->
+            <form class="" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="form-row">
+                    <div class="position-relative form-group col-md-12">
+                        <label for="StudentStatus" class="">Status</label>
+                        <select class="form-control" name="student_status" id="student_status" required>
+                            <option selected>Choose Status</option>
+                            <option value="Active">Active</option>
+                            <option value="Collection">Collection</option>
+                            <option value="Not Active">Not Active</option>
+                            <option value="Active But Lagging">Active But Lagging</option>
+                            <option value="Dropped Before One Month">Dropped Before One Month</option>
+                            <option value="Can't Become Active">Can't Become Active</option>
+                            <option value="Ready For Placement">Ready For Placement</option>
+                            <option value="Preparing For Placement">Preparing For Placement</option>
+                            <option value="Willing To Shift To Future Batchba">Willing To Shift To Future Batch</option>
+			    <option value="Under Observation">Under Observation</option>
+			    <option value="Placed">Placed</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="d-flex justify-content-end">
+                    <button class="mt-1 btn b-btn">Update Status</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+</script>
+{% endblock %}

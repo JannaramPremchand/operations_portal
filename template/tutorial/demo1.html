@@ -1,0 +1,26 @@
+<!-- Copyright (c) Microsoft Corporation.
+     Licensed under the MIT License. -->
+
+<!-- <HomeSnippet> -->
+{% extends "tutorial/layout.html" %}
+{% block content %}
+  <h2>Demo table</h2>
+  <style>
+    table, th, td {
+      border:1px solid black;
+    }
+    </style>
+  
+  <table style="width:100%">
+    <tr>
+      <th>Name</th>
+    </tr>
+    {% for i in title1 %}
+    <tr>
+      <td>{{i.title}}</td>
+    </tr>
+    {% endfor %}
+  </table>
+  
+{% endblock %}
+<!-- </HomeSnippet> -->

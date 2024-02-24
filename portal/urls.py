@@ -1,0 +1,63 @@
+from django.contrib import admin
+from django.urls import path
+from portal import views
+
+urlpatterns = [
+    path('', views.home, name='home'),
+    path('login/', views.login_req,  name='login'),
+    path('logout/', views.logout, name ='logout'),
+    path('batches/', views.batches,  name='batches'),
+    path('batch_details/<int:pk>', views.batch_details,  name='batch_details'),
+   # path('student_details/', views.student_details,  name='student_details'),
+    path('allcourses/', views.allcourses,   name='allcourses'),
+    path('allmodules/<int:pk>', views.allmodules,   name='allmodules'),
+    path('allprograms/', views.allprograms,   name='allprograms'),
+    path('myperformance/', views.myperformance,   name='myperformance'),
+    path('assignments/<int:pk>', views.assignments,   name='assignments'),
+    path('assignments_summary/', views.assignments_summary,   name='assignments_summary'),
+    path('fetchitems/', views.fetchitems,  name='fetchitems'),
+    path('batchfilter/', views.batchfilter,  name='batchfilter'),
+    path('myprofile/', views.myprofile,  name='myprofile'),
+    path('mydashboard/', views.mydashboard,  name='mydashboard'),
+    path('studentassignmentdetails/<int:pk>', views.studentassignmentdetails,  name='studentassignmentdetails'),
+    path('studentattendancedetails/<int:pk>', views.studentattendancedetails,  name='studentattendancedetails'),
+    path('teacherattendancedetails/<int:pk>', views.teacherattendancedetails,  name='teacherattendancedetails'),
+    path('create_batch/', views.create_batch,  name='create_batch'),
+    path('update_batch/<int:pk>', views.update_batch,  name='update_batch'),
+    path('batch_students/<int:pk>', views.batch_students,  name='batch_students'),
+    path('add_student/<int:pk>', views.add_student,  name='add_student'),
+    path('transfer_student/<int:pk>', views.transfer_student,  name='transfer_student'),
+    path('student_notes/<int:pk>', views.student_notes,  name='student_notes'),
+    path('add_student_only/', views.add_student_only,  name='add_student_only'),
+    path('student_status_update/<int:pk>', views.student_status_update,  name='student_status_update'),
+    path('myAttendanceDetails/<int:pk>', views.myAttendanceDetails,  name='myAttendanceDetails'),
+    path('upload_attendance_only/', views.upload_attendance_only,  name='upload_attendance_only'),
+    path('allStudents/', views.allStudents,  name='allStudents'),
+    path('Teacherdetails/', views.Teacherdetails,  name='Teacherdetails'),
+    path('fetchitemsteacher/', views.fetchitemsteacher,  name='fetchitemsteacher'),
+    path('raiseticket/', views.raiseticket,  name='raiseticket'),
+    path('allStudentstickets/', views.allStudentstickets,  name='allStudentstickets'),
+    path('ticket_status_update/<int:pk>', views.ticket_status_update,  name='ticket_status_update'),
+    path('getcategoryajax', views.getcategoryajax,  name='getcategoryajax'),
+    # path('getBatchcategoryajax', views.getBatchcategoryajax,  name='getBatchcategoryajax'),        # path('login/', views.login_req,  name='login'),
+    # path('signup/', views.signup,  name='signup'),
+
+    path('home1', views.home1, name='home1'),
+    path('signin/', views.sign_in, name='signin'),
+    path('signout', views.sign_out, name='signout'),
+    path('calendar', views.calendar, name='calendar'),
+    path('education', views.education, name='education'),
+    path('callback', views.callback, name='callback'),
+    path('calendar/new', views.newevent, name='newevent'),
+    # path('calendar/new', views.onlinemeeting, name='onlinemeeting'),
+    path('education/new', views.newgrade, name='newgrade'),
+    path('mytask', views.mytask, name='mytask'),
+    path('test', views.test, name='test'),
+    path('meeting_attendence', views.meeting_attendence, name='meeting_attendence'),
+    path('calendar/getattendence', views.meeting_attendence, name='meeting_attendence'),
+
+    path('api/batches/', views.batches_api, name='batches_api'), # it give all the data of batches and analytics
+    path('api/batches/<int:pk>/', views.batch_details_api, name='batch_details_api'), #each batch students details
+    path('api/student-attendance-details/<int:pk>/', views.student_attendance_details_api, name='student_attendance_details_api'),
+    
+]

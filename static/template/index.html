@@ -1,0 +1,36 @@
+{% extends 'co-ordinator-header.html'%}
+{% block body%}
+<div class="app-page-title">
+    <div class="page-title-wrapper">
+        <div class="page-title-heading">
+            <div class="page-title-icon">
+                <i class="pe-7s-car icon-gradient bg-mean-fruit">
+                </i>
+            </div>
+            <div>Welcome {{request.user.first_name}} {{request.user.last_name}} !!!
+                <!-- <div class="page-title-subheading">This is an example dashboard created using build-in elements and components.
+                                    </div> -->
+            </div>
+        </div>
+    </div>
+</div><!--  -->
+<div class="row">
+    <div class="col-md-12">
+        <div class="main-card mb-3 card" style="height: 268px;">
+            <div class="card-body text-center">
+                <div class="row mt-5">
+                    <div class="col-md-12">
+                        <i class="pe-7s-medal mr-5 icon-gradient bg-mean-fruit" style="font-size:75px">
+                        </i>
+                        <h4 class="mr-3">Digikull Learning</h4>
+                        <!-- <h6><i class="pe-7s-lock icon-gradient bg-mean-fruit" style="font-size:20px">
+                                                        </i>
+                                                        <span>complete all courses to unlock the certificate</span>
+                                                    </h6> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

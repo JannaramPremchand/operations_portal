@@ -1,0 +1,197 @@
+{% extends 'student-header.html'%}
+{% block title %}Student Dashboard{% endblock %}
+{% block body%}
+<div class="app-page-title">
+    <div class="page-title-wrapper">
+        <div class="page-title-heading">
+            <div class="page-title-icon">
+                <i class="pe-7s-study icon-gradient bg-mean-fruit">
+                </i>
+            </div>
+            <div>Welcome {{request.user.first_name}} {{request.user.last_name}} !!!
+                <!-- <div class="page-title-subheading">This is an example dashboard created using build-in elements and components.
+                                    </div> -->
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="main-card mb-3 card bg-arielle-smile">
+            <div class="card-header p-2 bg-arielle-smile" style="height: 5rem;">
+                <div class="widget-heading text-white mt-2 ml-2">Performance Summary</div>
+                <div class="p-2 flex-fill d-flex justify-content-end">
+                    {% for i in st_att_sum %}
+                            <button class="btn c-btn p-2 mt-2 mr-2" onclick="window.location.href='/myAttendanceDetails/{{i.StudentId}}'">View Attendance Details</button>
+                            <button class="btn c-btn p-2 mt-2" onclick="window.location.href='/studentassignmentdetails/{{i.StudentId}}'" >View Assignment Details</button> 
+                          
+                        </div>
+            </div>
+            <div class="card-body bg-arielle-smile">
+                
+                <div class="row">
+                    <!-- <div class="col-md-4">
+                        <div class="p-2 flex-fill">
+                            <div class="widget-subheading text-white">My Current Ranking</div>
+                        </div>
+                    </div>
+                    <div class="col-md-1">
+                        <div class="widget-subheading text-white">:</div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="p-2 flex-fill">
+                            <div class="widget-subheading text-white">{{i.SessionId}}</div>
+                        </div>
+                    </div>
+                    <div class="col-md-4"></div> -->
+                    <div class="col-md-4">
+                        <div class="p-2 flex-fill">
+                            <div class="widget-subheading text-white">My Name</div>
+                        </div>
+                    </div>
+                    <div class="col-md-1">
+                        <div class="widget-subheading text-white">:</div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="p-2 flex-fill">
+                            <div class="widget-subheading text-white">{{i.StudentName}}</div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <!-- <div class="p-2 flex-fill d-flex justify-content-end">
+                                <button class="btn c-btn p-2 mr-2">View Attendance Details</button>
+                                <button class="btn c-btn p-2">View Assignment Details</button> -->
+                    </div>
+                    <div class="col-md-4">
+                        <div class="p-2 flex-fill">
+                            <div class="widget-subheading text-white">My Email</div>
+                        </div>
+                    </div>
+                    <div class="col-md-1">
+                        <div class="widget-subheading text-white">:</div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="p-2 flex-fill">
+                            <div class="widget-subheading text-white">{{i.StudentEmail}}</div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <!-- <div class="p-2 flex-fill d-flex justify-content-end">
+                                <button class="btn c-btn p-2 mr-2">View Attendance Details</button>
+                                <button class="btn c-btn p-2">View Assignment Details</button> -->
+                    </div>
+                    <div class="col-md-4">
+                        <div class="p-2 flex-fill">
+                            <div class="widget-subheading text-white">Total Sessions in My Batch</div>
+                        </div>
+                    </div>
+                    <div class="col-md-1">
+                        <div class="widget-subheading text-white">:</div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="p-2 flex-fill">
+                            <div class="widget-subheading text-white">{{i.totalsessions}}</div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <!-- <div class="p-2 flex-fill d-flex justify-content-end">
+                                <button class="btn c-btn p-2 mr-2">View Attendance Details</button>
+                                <button class="btn c-btn p-2">View Assignment Details</button> -->
+                    </div>
+                    <div class="col-md-4">
+                        <div class="p-2 flex-fill">
+                            <div class="widget-subheading text-white">Sessions Attended by Me</div>
+                        </div>
+                    </div>
+                    <div class="col-md-1">
+                        <div class="widget-subheading text-white">:</div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="p-2 flex-fill">
+                            <div class="widget-subheading text-white">{{i.studentsessions}}</div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <!-- <div class="p-2 flex-fill d-flex justify-content-end">
+                                <button class="btn c-btn p-2 mr-2">View Attendance Details</button>
+                                <button class="btn c-btn p-2">View Assignment Details</button> -->
+                    </div>
+                    <div class="col-md-4">
+                        <div class="p-2 flex-fill">
+                            <div class="widget-subheading text-white">Minutes of Session in My Batch</div>
+                        </div>
+                    </div>
+                    <div class="col-md-1">
+                        <div class="widget-subheading text-white">:</div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="p-2 flex-fill">
+                            <div class="widget-subheading text-white">{{i.sessionminutes}}</div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <!-- <div class="p-2 flex-fill d-flex justify-content-end">
+                                <button class="btn c-btn p-2 mr-2">View Attendance Details</button>
+                                <button class="btn c-btn p-2">View Assignment Details</button> -->
+                    </div>
+                    <div class="col-md-4">
+                        <div class="p-2 flex-fill">
+                            <div class="widget-subheading text-white">Total Minutes Attended by Me</div>
+                        </div>
+                    </div>
+                    <div class="col-md-1">
+                        <div class="widget-subheading text-white">:</div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="p-2 flex-fill">
+                            <div class="widget-subheading text-white">{{i.studentminutes}}</div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <!-- <div class="p-2 flex-fill d-flex justify-content-end">
+                                <button class="btn c-btn p-2 mr-2">View Attendance Details</button>
+                                <button class="btn c-btn p-2">View Assignment Details</button> -->
+                    </div>
+                    <div class="col-md-4">
+                        <div class="p-2 flex-fill">
+                            <div class="widget-subheading text-white">My Attendance %</div>
+                        </div>
+                    </div>
+                    <div class="col-md-1">
+                        <div class="widget-subheading text-white">:</div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="p-2 flex-fill">
+                            <div class="widget-subheading text-white">{{i.studentattendancepercent}}</div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <!-- <div class="p-2 flex-fill d-flex justify-content-end">
+                                <button class="btn c-btn p-2 mr-2">View Attendance Details</button>
+                                <button class="btn c-btn p-2">View Assignment Details</button> -->
+                    </div>
+                    <div class="col-md-4">
+                        <div class="p-2 flex-fill">
+                            <div class="widget-subheading text-white">My Availability %</div>
+                        </div>
+                    </div>
+                    <div class="col-md-1">
+                        <div class="widget-subheading text-white">:</div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="p-2 flex-fill">
+                            <div class="widget-subheading text-white">{{i.studentavailabilitypercent}}</div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <!-- <div class="p-2 flex-fill d-flex justify-content-end">
+                                <button class="btn c-btn p-2 mr-2">View Attendance Details</button>
+                                <button class="btn c-btn p-2">View Assignment Details</button> -->
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

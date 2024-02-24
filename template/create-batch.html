@@ -1,0 +1,65 @@
+{% extends 'co-ordinator-header.html'%}
+{% block title %}Create Batch{% endblock %}
+{% block body%}
+<div class="app-page-title">
+    <div class="page-title-wrapper">
+        <div class="page-title-heading">
+            <div class="page-title-icon">
+                <button class="btn" onclick="history.back()" style="margin-left: -10px;">
+                    <i class="pe-7s-left-arrow pe-2x"></i>
+                </button>
+            </div>
+            <div>Create Batch
+                <div class="page-title-subheading">
+                </div>
+            </div>
+        </div>
+            {% for message in messages%}
+            <div class="page-title-heading m-auto">{{message}}</div>
+            {% endfor %}
+    </div>
+</div>
+<div class="container">
+    <div class="main-card mb-3 card">
+        <div class="card-body">
+            <!-- <h5 class="card-title">Controls Types</h5> -->
+            <form class="" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="position-relative form-group">
+                    <label for="BatchCategory" class="">Batch Category</label>
+                    <select name="batch_category" id="batch_category" class="form-control" required>
+                        <option value="">Select Batch Category</option>
+                        {% for i in BatchCategory %}
+                        <option value="{{i.CategoryId}}">{{i.CategoryName}}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="position-relative form-group">
+                    <label for="BatchName" class="">Batch Name</label>
+                    <input name="batch_name" id="batch_name" placeholder="Enter Batch Name" type="text" class="form-control" required>
+                </div>
+                <div class="position-relative form-group">
+                    <label for="BatchStartDate" class="">Batch Start Date</label>
+                    <input name="batch_start_date" id="batch_start_date" placeholder="Enter Batch Date" type="date" class="form-control" required>
+                </div>
+                <!-- <div class="position-relative form-group">
+                    <label for="BatchEndDate" class="">Batch End Date</label>
+                    <input name="batch_end_date" id="batch_end_date" placeholder="Enter Batch Date" type="date" class="form-control">
+                </div> -->
+                <div class="position-relative form-group">
+                    <label for="BatchStatus" class="">Batch Status</label>
+                    <select name="batch_status" id="batch_status" class="form-control" required>
+                        <option value="">Select Batch Status</option>
+                        {% for i in BatchStatus %}
+                        <option value="{{i.StatusId}}">{{i.StatusName}}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="d-flex justify-content-end">
+                    <button class="mt-1 btn b-btn">Submit</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

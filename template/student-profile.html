@@ -1,0 +1,69 @@
+{% extends 'student-header.html'%}
+{% block title %}Student Profile{% endblock %}
+{% block body%}
+<div class="app-page-title">
+    <div class="page-title-wrapper">
+        <div class="page-title-heading">
+            <div class="page-title-icon">
+                <i class="pe-7s-user icon-gradient bg-mean-fruit">
+                </i>
+            </div>
+            <div>
+                Your Details
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="main-card mb-3 card">
+            <!-- <div class="card-header"></div> -->
+            <div class="card-body">
+                <form method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {% for i in info %}
+                    <div class="position-relative form-group">
+                        <label for="StudentName" class="">Your Name</label>
+                        <input type="text" class="form-control " value="{{i.StudentId.StudentName}}" name="student_name" maxlength="95" pattern="[A-Za-z0-9'_']{1,95}" required readonly>
+                        <!-- <p class="text-muted">{{message}}</p> -->
+                    </div>
+                    <div class="form-row">
+                        <div class="col-md-6">
+                            <div class="position-relative form-group">
+                                <label for="StudentEmail" class="">Your Email</label>
+                                <input type="text" class="form-control " value="{{i.StudentId.StudentEmail}}" name="student_email" maxlength="95" pattern="[A-Za-z0-9'_']{1,95}" required readonly>
+                                <!-- <p class="text-muted">{{message}}</p> -->
+                            </div>
+                        </div>
+                        <input type="hidden" name="student_id" id="student_id" value="{{i.StudentId.StudentId}}">
+                        <div class="col-md-6">
+                            <div class="position-relative form-group">
+                                <label for="StudentContact" class="">Your Contact</label>
+                                <input type="tel" id="student_contact" class="form-control " placeholder="Enter Contact Number" value="{{i.StudentId.StudentContact}}" name="student_contact" pattern="[0-9]{10}" required readonly>
+                                <!-- <p class="text-muted">{{message}}</p> -->
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                    <div class="form-row mt-4">
+                        <div class="position-relative form-group col-md-8"></div>
+                        <div class="position-relative form-group col-md-2">
+                            <a class="btn b-btn form-control" onclick="editDetails()">Edit Details</a>
+                        </div>
+                        <div class="position-relative form-group col-md-2">
+                            <input type="submit" name="" class="btn b-btn form-control" value="Save">
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+</div>
+<script type="text/javascript">
+function editDetails() {
+    document.getElementById('student_contact').readOnly = false;
+}
+</script>
+{% endblock %}

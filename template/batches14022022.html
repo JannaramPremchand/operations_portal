@@ -1,0 +1,98 @@
+{% extends 'co-ordinator-header.html'%}
+{% block body%}
+<div class="app-page-title">
+    <div class="page-title-wrapper">
+        <div class="page-title-heading">
+            <div class="page-title-icon">
+                <button class="btn" onclick="history.back()" style="margin-left: -10px;">
+                    <i class="pe-7s-home pe-2x"></i>
+                </button>
+            </div>
+            <div>Digikull Learning Center
+                <div class="page-title-subheading">
+                </div>
+            </div>
+        </div>
+        <div class="page-title-actions">
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <button type="button" id="upload_attendance" name="upload_attendance" class="btn" style="color: #FFDE59;background: #1B1642;">
+                    Upload Attendance<i class="ml-2 fa fa-upload"></i>
+                </button>
+                <input type="file" onchange="this.form.submit()" id="attendanceFile" name="attendanceFile" accept=".csv" style="display:none" />
+            </form>
+        </div>
+    </div>
+</div>
+{% for message in messages%}
+<div class="row">
+    <div class="col-md-12">
+        <div class="main-card mb-3 card">
+            <div class="card-header p-2" style="height: 5rem;">
+                <div class="p-2 flex-fill d-flex justify-content-start">
+                    <div class="card-title mt-2">{{message}}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endfor %}
+<div class="main-card mb-3 card">
+    <div class="card-header p-2" style="height: 5rem;">
+        <div class="card-title mt-2 ml-3">Batches</div>
+        <!-- <div class="p-2 flex-fill d-flex justify-content-end">
+                            <button class="btn c-btn p-2 mt-2 mr-2">View Attendance Details</button>
+                            <button class="btn c-btn p-2 mt-2">View Assignment Details</button>
+                        </div> -->
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table id="myTable" class="mb-0 table table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <th>Batch Name</th>
+                        <th>Status</th>
+                        <th>Category</th>
+                        <th>Total Students</th>
+                        <th>Average Attendance Last 5 Sessions</th>
+                        <th>Average Availability Last 5 Sessions</th>
+                        <!-- <th>Average Attendance in Last 5 Session</th> -->
+                        <!-- <th></th>
+                        <th></th> -->
+                        {% if request.user.username == 'admin' %}
+                        <th></th>
+                        {% endif %}
+                    </tr>
+                </thead>
+                <!-- <tbody> -->
+                {% for i in s_info %}
+
+                <tr>
+                    <td>
+                        <button class="btn b-btn form-control" onclick="location.href = '/batch_details/{{i.BatchId}}';">{{i.BatchName}}</button>
+                        <input type="hidden" name="batchid" id="tag{{i.BatchId}}" value="{{i.BatchId}}">
+                    </td>
+                    <td>{{i.StatusName}}</td>
+                    <td>{{i.CategoryName}}</td>
+                    
+                    <td><span class="badge badge-pill badge-warning">{{i.studentcount}}</span></td>
+                    <td><span class="badge badge-pill badge-warning">{{i.avg_attendance_last_5_sessions}} %</span></td>
+                    <td><span class="badge badge-pill badge-warning">{{i.avg_availabilty_last_5_sessions}} %</span></td>                    {% if request.user.username == 'admin' %}
+                    <td>
+                        <button class="btn mr-2 mb-2" onclick="location.href = '/update_batch/{{i.BatchId}}';" style="color: #FFDE59;background: #1B1642;">
+                            <i class="pe-7s-pen"></i>
+                        </button>
+                    </td>
+                    {% endif %}
+                </tr>
+                {% endfor %}                <!-- </tbody> -->
+            </table>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    document.getElementById('upload_attendance').onclick = function() {
+    document.getElementById('attendanceFile').click();
+};
+</script>
+{% endblock %}

@@ -1,0 +1,161 @@
+{% extends 'student-header.html'%}
+{% block body%}
+<style>
+    body{
+        overflow-y: hidden;
+    }
+</style>
+<div class="app-page-title">
+    <div class="page-title-wrapper">
+        <div class="page-title-heading">
+            <div class="page-title-icon">
+                <i class="pe-7s-study icon-gradient bg-mean-fruit">
+                </i>
+            </div>
+            <div>Digikull Learning Center
+                <!-- <div class="page-title-subheading">This is an example dashboard created using build-in elements and components.
+                                    </div> -->
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-4">
+        <div class="main-card mb-3 card" style="margin-top: -30px;">
+            <div class="card-body">
+                <div class="scroll-area-lg">
+                    <div class="scrollbar-container ps--active-y">
+                        <div id="exampleAccordion" data-children=".item">
+                            {% for i in all_modules %}
+                            <div class="item mt-2">
+                                {% if i.ModuleType == 'Chapter' %}
+                                <div class="row" aria-expanded="true" aria-controls="exampleAccordion1" data-toggle="collapse" href="#collapseExample" style="cursor: pointer;">
+                                    <div class="col-md-9">
+                                        <div class="card-title">{{i.ModuleName}}</div>
+                                    </div>
+                                    <div class="col-md-3" style="float:right;">
+                                        <div class="progress mt-1" style="width:65px;float: right;">
+                                            <div class="progress-bar" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width: 50%;">1/2</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                {% endif %}
+                                <div data-parent="#exampleAccordion" id="collapseExample" class="collapse mt-1 show">
+                                    {% if i.ModuleType == 'Lesson' %}
+                                    <div class="row" id="tag{{i.ModuleId}}" style="cursor:pointer;">
+                                        <div class="col-md-1">
+                                            <input type="hidden" id="tag{{i.ModuleId}}" value="{{i.WorkLink}}">
+                                        </div>
+                                        <div class="col-md-1">
+                                            <i class="pe-7s-play pe-lg" style="color: #1B1642;">
+                                            </i>
+                                        </div>
+                                        <div class="col-md-7">
+                                            <div class="card-subtitle">{{i.ModuleName}}</div>
+                                            <!-- <div type="hidden" class="card-subtitle">{{i.WorkLink}}</div> -->
+                                        </div>
+                                        <div class="col-md-2">
+                                            <div class="progress mt-1" style="width:50px;">
+                                                <div class="progress-bar" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width: 50%;">50%</div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-1"></div>
+                                    </div>
+                                    {% endif %}
+                                    {% if i.ModuleType == 'Practice' %}
+                                    <div class="row" id="tag{{i.ModuleId}}" style="cursor:pointer;">
+                                        <div class="col-md-1">
+                                            <input type="hidden" id="tag{{i.ModuleId}}" value="{{i.WorkLink}}">
+                                        </div>
+                                        <div class="col-md-1">
+                                            <i class="pe-7s-note pe-lg" style="color: #1B1642;">
+                                            </i>
+                                        </div>
+                                        <div class="col-md-7">
+                                            <div class="card-subtitle">{{i.ModuleName}}</div>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <div class="progress mt-1" style="width:50px;">
+                                                <div class="progress-bar" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width: 50%;">50%</div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-1"></div>
+                                    </div>
+                                    {% endif %}
+                                    {% if i.ModuleType == 'Assignment' %}
+                                    <div class="row" id="tag{{i.ModuleId}}" style="cursor:pointer;">
+                                        <div class="col-md-1">
+                                            <input type="hidden" id="tag{{i.ModuleId}}" value="{{i.WorkLink}}">
+                                        </div>
+                                        <div class="col-md-1">
+                                            <i class="pe-7s-note2 pe-lg" style="color: #1B1642;">
+                                            </i>
+                                        </div>
+                                        <div class="col-md-7">
+                                            <div class="card-subtitle">{{i.ModuleName}}</div>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <div class="progress mt-1" style="width:50px;">
+                                                <div class="progress-bar" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width: 50%;">50%</div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-1"></div>
+                                    </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-8" style="overflow-y:hidden;">
+        <div class="card mb-3 widget-content" style="position:fixed;top:180px;">
+            <div class="widget-content-wrapper">
+                <iframe width="740" height="405" id="chapter_link" src="">
+                </iframe>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script>
+$(document).ready(function() {
+    $('div[id^="tag"]').click(function() {
+        // alert(this.id);
+        var lesson_id = this.id;
+         var lesson_link = $(this,'div[id^="tag"] input[id^="tag"]').attr('id');
+        var lesson_link_v = $(this).find('input[id^="tag"]').val();
+        // alert(lesson_link);
+        // console.log('llv',lesson_link)
+        // alert('ll' +lesson_link);
+        //      $('div[id^="tag"] input[id^="tag"]').each(function(){
+        //   var lesson_link = $('div[id^="tag"] input[id^="tag"]').attr('id');
+
+        // });
+        if (lesson_id == lesson_link) {
+            // lesson_link_v = $(this,'div[id^="tag"] input[id^="tag"]').val();
+            // alert(lesson_id);
+            // alert('ll' + lesson_link_v);
+            $('#chapter_link').attr('src', lesson_link_v);
+        }
+
+        // if (lesson_id == lesson_link) {
+        //     lesson_link_v = $('div[id^="tag"] input[id^="tag"]').val();
+        //     alert('ll'+lesson_link);
+        //     $('#chapter_link').attr('src', lesson_link_v);
+        // }
+        // var lesson_link = $('input[id^="tag"]').val();
+
+        // console.log('lesson_link',lesson_link);
+        // $('#chapter_link').attr('src', lesson_link);
+    });
+
+
+    
+
+});
+</script>
+{% endblock %}

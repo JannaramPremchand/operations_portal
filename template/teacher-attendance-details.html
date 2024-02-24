@@ -1,0 +1,190 @@
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <script src="http://code.jquery.com/jquery-2.0.3.min.js" data-semver="2.0.3" data-require="jquery"></script>
+    <link href="//cdnjs.cloudflare.com/ajax/libs/datatables/1.9.4/css/jquery.dataTables_themeroller.css" rel="stylesheet" data-semver="1.9.4" data-require="datatables@*" />
+    <link href="//cdnjs.cloudflare.com/ajax/libs/datatables/1.9.4/css/jquery.dataTables.css" rel="stylesheet" data-semver="1.9.4" data-require="datatables@*" />
+    <link href="//cdnjs.cloudflare.com/ajax/libs/datatables/1.9.4/css/demo_table_jui.css" rel="stylesheet" data-semver="1.9.4" data-require="datatables@*" />
+    <link href="//cdnjs.cloudflare.com/ajax/libs/datatables/1.9.4/css/demo_table.css" rel="stylesheet" data-semver="1.9.4" data-require="datatables@*" />
+    <link href="//cdnjs.cloudflare.com/ajax/libs/datatables/1.9.4/css/demo_page.css" rel="stylesheet" data-semver="1.9.4" data-require="datatables@*" />
+    <link data-require="jqueryui@*" data-semver="1.10.0" rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/jqueryui/1.10.0/css/smoothness/jquery-ui-1.10.0.custom.min.css" />
+    <script data-require="jqueryui@*" data-semver="1.10.0" src="//cdnjs.cloudflare.com/ajax/libs/jqueryui/1.10.0/jquery-ui.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/datatables/1.9.4/jquery.dataTables.js" data-semver="1.9.4" data-require="datatables@*"></script>
+    <link href="../static/css/style.css" rel="stylesheet" />
+    <script src="../static/css/script.js"></script>
+    
+  </head>
+  <style>
+    .button1{
+        margin-left: 980px;
+        
+    }
+</style>
+<style>
+    .button2{
+        margin-left: -115px;
+        
+    }
+</style>
+<style>
+    .button3{
+        margin-left: 855px;  
+    }
+</style>
+  {% extends 'co-ordinator-header.html'%}
+  {% block title %}Teachers{% endblock %}
+  {% block body%}
+  <body>
+    <div class="app-page-title">
+        <div class="page-title-wrapper">
+            <div class="page-title-heading">
+                <div class="page-title-icon">
+                    <button class="btn" onclick="history.back()" style="margin-left: -10px;">
+                        <i class="pe-7s-home pe-2x"></i>
+                    </button>
+                </div>
+                <div>Digikull Learning Center
+                    <div class="page-title-subheading">
+                    </div>
+                </div>
+            </div>
+            <div class="page-title-actions">
+                <!-- <form method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <button type="button" id="upload_attendance" name="upload_attendance" class="btn" style="color: #FFDE59;background: #1B1642;">
+                        Upload Attendance<i class="ml-2 fa fa-upload"></i>
+                    </button>
+                    <input type="file" onchange="this.form.submit()" id="attendanceFile" name="attendanceFile" accept=".csv" style="display:none" />
+                </form> -->
+            </div>
+        </div>
+    </div>
+    {% for message in messages%}
+    <div class="row">
+        <div class="col-md-12">
+            <div class="main-card mb-3 card">
+                <div class="card-header p-2" style="height: 5rem;">
+                    <div class="p-2 flex-fill d-flex justify-content-start">
+                        <div class="card-title mt-2">{{message}}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+    <div class="main-card mb-3 card">
+        <div class="card-header p-2" style="height: 5rem;">
+            <div class="card-title mt-2 ml-3">Teachers</div>
+        </div>
+        <div class="card-body">
+<p id="date_filter">
+    <span id="date-label-from" class="date-label">From: </span><input class="date_range_filter date" type="text" id="datepicker_from" />
+    <span id="date-label-to" class="date-label">To: </span><input class="date_range_filter date" type="text" id="datepicker_to" />
+    <!-- <button class="btn" id="reset_btn">Reset</button> -->
+</p>
+<p id="radio_date_filter">
+   <input type="radio" name="filtertable" value="week" />This Week
+   <input type="radio" name="filtertable"  value="month"/>This Month
+</p>
+
+    <table id="datatable" class="mb-0 table table-bordered table-hover">
+        <thead>
+            <tr>
+                <!-- <th>TeacherID</th> -->
+                <th>Teacher Name</th>
+                <th>Session date</th>
+                <th>Teacherintime</th>
+                <th>Teacherouttime</th>
+                <th>Duration</th>
+                {% if request.user.username == 'admin' %}
+                {% endif %}
+            </tr>
+        </thead>
+        <!-- <tbody> -->
+        {% for i in Teacher_cls_detail %}
+        <tr>
+            <td>
+                {{i.Teacher_name}}
+                <!-- <button class="btn b-btn form-control" onclick="location.href = '/teacherattendancedetails/{{i.UserID_id}}';">{{i.Teacher_name}}</button> -->
+                <!-- <input type="hidden" name="userid" id="tag{{i.UserID_id}}" value="{{i.UserID_id}}"> -->
+            </td>
+            <!-- <td>{{i.Teacher_name}}</td> -->
+            <!-- <td>{{i.Teacherintime}}</td> -->
+            <td>{{i.Teacherintime|date:"m/d/Y"}}</td>
+            <td>{{i.Teacherintime}}</td>
+            <td>{{i.Teacherouttime}}</td>
+            <td>{{i.teacher_duration}}</td>
+            <!-- <td><span id="teach_duration" class="badge badge-pill badge-warning">{{i.teacher_duration}}</span></td> -->
+            <!-- <td><span class="badge badge-pill badge-warning">{{i.avg_availabilty_last_5_sessions}}</span></td> -->
+            <!-- {% if request.user.username == 'admin' %}
+            <td>
+                <button class="btn mr-2 mb-2" onclick="location.href = '/update_batch/{{i.BatchId}}';" style="color: #FFDE59;background: #1B1642;">
+                    <i class="pe-7s-pen"></i>
+                </button>
+            </td>
+            {% endif %} -->
+        </tr>
+        {% endfor %}
+        <!-- {% for i in info %}
+
+        <tr>
+            <td>
+                <button class="btn b-btn form-control" onclick="location.href = '/batch_details/{{i.BatchId}}';">{{i.BatchName}}</button>
+                <input type="hidden" name="batchid" id="tag{{i.BatchId}}" value="{{i.BatchId}}">
+            </td>
+            <td>{{i.StatusId.StatusName}}</td>
+            <td>{{i.CategoryId.CategoryName}}</td>
+            
+            <td>{{i.TotalStudents}}</td>
+            {% if request.user.username == 'admin' %}
+            <td>
+                <button class="btn mr-2 mb-2" onclick="location.href = '/update_batch/{{i.BatchId}}';" style="color: #FFDE59;background: #1B1642;">
+                    <i class="pe-7s-pen"></i>
+                </button>
+            </td>
+            {% endif %}
+        </tr>
+        {% endfor %} -->
+        <!-- </tbody> -->
+        <br>
+        <tfoot>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th id="mytotal"></th>
+        </tfoot>
+        <br>
+        
+    </table>
+    
+    <br>
+        <!-- <div class="row">
+            <div class="col-sm">
+                One of three columns
+              </div><div class="col-sm">
+                One of three columns
+              </div></div></div>
+        </div> -->
+<!-- </div class="row" >
+<input id="total" placeholder="Total" type="text" class="button1" value="" disabled style=" width: 18%;">
+</div> -->
+
+
+<!-- <div class="row">
+    <div class="col-10">
+      <button type="button" id="mybutton" name="upload_attendance" class="button1" style="color: #FFDE59;background: #1B1642;">Total 
+    </button>
+    </div>
+    <div class="col-2">
+      <input id="total" placeholder="" type="text" class="button2" value="" disabled style=" width: 115%;">
+    </div>
+</div> -->
+
+
+</div>
+  </body>
+
+</html>
+
+{% endblock %}

@@ -1,0 +1,71 @@
+{% extends 'co-ordinator-header.html'%}
+{% block title %}Update Ticket Status{% endblock %}
+{% block body%}
+<div class="app-page-title">
+    <div class="page-title-wrapper">
+        <div class="page-title-heading">
+            <div class="page-title-icon">
+                <button class="btn" onclick="history.back()" style="margin-left: -10px;">
+                    <i class="pe-7s-left-arrow pe-2x"></i>
+                </button>
+            </div>
+            <div>Update Status
+                <div class="page-title-subheading">
+                </div>
+            </div>
+        </div>
+        {% for message in messages%}
+        <div class="page-title-heading m-auto">{{message}}</div>
+        {% endfor %}
+    </div>
+</div>
+<div class="container">
+    <div class="main-card mb-3 card">
+        <div class="card-body">
+            <!-- <h5 class="card-title">Controls Types</h5> -->
+            <form class="" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="form-row">
+                    <div class="position-relative form-group col-md-12">
+                        <label for="ticketStatus" class="">Status</label>
+                        <select class="form-control" name="ticket_status" id="ticket_status" required>
+                            <option disabled>Choose Status</option>
+                            {% for i in mystatus %}
+                            <option value="{{i.ticketstatusid}}">{{i.ticketstatusname}}</option>
+                            {% endfor %}
+                            <!-- <option value="1">Not Assigned</option>
+                            <option value="2">Assigned</option>
+                            <option value="3">Resolved</option> -->
+                        </select>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="position-relative form-group col-md-12">
+                        <label for="ticketStatus" class="">Assigned To</label>
+                        <select class="form-control" name="ticket_status1" id="ticket_status1" required>
+                            <option disabled>Choose Status</option>
+                            {% for i in tkt_assign %}
+                            <option value="{{i.id}}">{{i.fullname}}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="position-relative form-group col-md-12">
+                    {% for i in ticketdesc %}
+                    <label for="SelectBatch" class="">Edit Description</label>
+                  
+                    <textarea class="form-control" name="ticketdescription" id="ticketdescription" rows="4" value="" >{{i.ticketdescription}}</textarea>
+                    {% endfor %}
+               
+                </div>
+                <div class="d-flex justify-content-end">
+                    <button class="mt-1 btn b-btn">Update Status</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+</script>
+{% endblock %}
